@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sản phẩm của tôi</title>
+<style>
+  :root {
+    --ink: #1c1b19;
+    --paper: #f7f5f1;
+    --line: #d9d5cc;
+    --accent: #2f5d50;
+    --muted: #6b675f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.5;
+  }
+
+  header {
+    padding: 64px 24px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--line);
+  }
+
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 0 0 8px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  header p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 1.05rem;
+    max-width: 60ch;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  #product-count {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+
+  .card-image {
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, #e7e3da, #d9d5cc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: -apple-system, sans-serif;
+  }
+
+  .card-body {
+    padding: 18px 20px 22px;
+  }
+
+  .card-body h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .card-body .desc {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 0 0 14px;
+    font-family: -apple-system, sans-serif;
+  }
+
+  .price {
+    font-family: -apple-system, sans-serif;
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 1.05rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: -apple-system, sans-serif;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 2px 9px;
+    margin-bottom: 10px;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 30px 24px 50px;
+    font-family: -apple-system, sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Sản phẩm của tôi</h1>
+  <p>Trang trưng bày — chỉ xem, không đặt hàng trực tiếp tại đây.</p>
+</header>
+
+<main>
+  <div id="product-count"></div>
+  <div class="grid" id="product-grid"></div>
+</main>
+
+<footer>
+  Dữ liệu sản phẩm được nạp động bằng JavaScript — sửa mảng <code>products</code> trong file để thay đổi nội dung.
+</footer>
+
+<script>
+  // ĐÂY LÀ PHẦN "ĐỘNG": sửa danh sách này, trang sẽ tự cập nhật khi tải lại.
+  const products = [
+    {
+      name: "Ghế gỗ tối giản",
+      price: "1.250.000đ",
+      tag: "Nội thất",
+      desc: "Khung gỗ sồi, hoàn thiện thủ công, phù hợp không gian nhỏ."
+    },
+    {
+      name: "Đèn bàn Origami",
+      price: "480.000đ",
+      tag: "Ánh sáng",
+      desc: "Ánh sáng dịu, thiết kế gấp giấy lấy cảm hứng từ Nhật Bản."
+    },
+    {
+      name: "Bình gốm men rạn",
+      price: "320.000đ",
+      tag: "Trang trí",
+      desc: "Mỗi chiếc có hoa văn men riêng, không cái nào giống hệt cái nào."
+    },
+    {
+      name: "Sổ tay bìa da",
+      price: "215.000đ",
+      tag: "Văn phòng phẩm",
+      desc: "Giấy dày 100gsm, không lem mực, gáy chỉ khâu tay."
+    }
+  ];
+
+  function renderProducts(list) {
+    const grid = document.getElementById('product-grid');
+    const count = document.getElementById('product-count');
+    count.textContent = list.length + ' sản phẩm';
+
+    grid.innerHTML = list.map(function (p) {
+      return `
+        <div class="card">
+          <div class="card-image">Ảnh sản phẩm</div>
+          <div class="card-body">
+            <span class="tag">${p.tag}</span>
+            <h3>${p.name}</h3>
+            <p class="desc">${p.desc}</p>
+            <div class="price">${p.price}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  renderProducts(products);
+</script>
+
+</body>
+</html>
